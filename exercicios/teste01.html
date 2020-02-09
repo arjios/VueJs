@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="/js/vue.min.js"></script>
+    <title>Teste01 VueJs</title>
+
+</head>
+<body class='Exec01'>
+    <div id='app'>
+        <input type="text" v-model="nome" placeholder="Digite o Nome"
+                v-on:keyup.enter="submitNome(' ', $event)">
+        </input>
+        <br />
+        <input type="text" v-model="cpf" placeholder="Digite o CPF" 
+                v-on:keyup.enter="submitCPF(' ', $event)">
+        </input>
+    </div>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                nome: '',
+                cpf: '',
+                nasc: '',
+                email: ''
+            },
+        methods: {
+            verificaNum: function verificaNumEqualCPF() {
+                var boo = true
+                if(this.cpf === "00000000000" ||
+                    this.cpf === "11111111111" ||
+                    this.cpf === "22222222222" ||
+                    this.cpf === "33333333333" ||
+                    this.cpf === "44444444444" ||
+                    this.cpf === "55555555555" ||
+                    this.cpf === "66666666666" ||
+                    this.cpf === "77777777777" ||
+                    this.cpf === "88888888888" ||
+                    this.cpf === "99999999999" ) {
+                       boo = false
+                }
+            return boo
+           },
+            submitCPF: function(message, event) {
+                if(event) {
+                    var boo = false
+                    var strcpf=this.cpf
+                    if(strcpf!==undefined) {
+                        if(strcpf.length===11) {
+                            if(this.verificaNum()) {
+                                boo=true 
+                               }
+                            }
+                        }
+                    }
+                if(boo) {
+                    this.cpf=strcpf.substring(0,3) + "." +
+                             strcpf.substring(3,6) + "." +
+                             strcpf.substring(6,9) + "-" +
+                             strcpf.substring(9,11)
+                    }
+                else {
+                    this.cpf="CPF Invalido!!!"
+                    }
+                }
+            }
+    })
+    </script>
+    
+</body>
+</html>

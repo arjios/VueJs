@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Binding</title>
+    <link rel="stylesheet" href="/css/estilo.css">
+    <script src="/js/vue.min.js"></script>
+</head>
+<body class="Exercicio">
+    <div id="app">
+        <p>{{ link }}</p>
+        <p><a v-bind:href="link">C A N A L</a></p>
+        <p>
+            Nome: <input type="text" name="Nome:" v-model="nome">
+            <br>
+            CPF: <input type="text" name="CPF:" v-model="cpf">
+            <br>
+            <span>{{ nome }}</span>
+            <span>{{ cpf }}</span>
+        </p>
+    </div>
+    <script>
+        new Vue ({
+            el: "#app",
+            data: {
+                nome: "Maria",
+                cpf: "xxx.xxx.xxx-xx",
+                link: "https://youtube.com/cod3rcursos"
+            }
+        })
+    </script>
+</body>
+</html>

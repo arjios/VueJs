@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="css/estilo.css" />
+    <script src="/js/vue.min.js"></script>
+    <title>Testes VueJs</title>
+</head>
+<Header><h2><center>Teste VueJs</center></h2></Header>
+<body class="Exercicio">
+    <div id="app">
+        <br />
+            <input type="text" name="isValidoCPF" placeHolder="Digite o CPF" v-model="inputCPF">
+        <br>
+        <hr />
+        <table>
+            <tr>
+                <th>Nome</th>
+                <th>C.P.F.</th>
+                <th>Data de Nascimento</th>
+                <th>E-mail</th>
+            </tr>
+
+            <tr>
+                <td>{{ nome }}</td>
+                <td>{{ cpf }}</td>
+                <td>{{ nasc }}</td>
+                <td>{{ email }}</td>
+            </tr>    
+
+        </table>
+    </div>
+    
+    <script>
+        new Vue ({
+            el: "#app",
+            data: {
+                nome: "Antonio Alves do Rosario Junior",
+                cpf: "Digite o CPF",
+                nasc: "20021957",
+                email: "antonio.uab.ios.fisica@gmail.com"
+            },
+            methods: {                
+                inputCPF: function (cpf) {
+                    var boo = false
+                    strcpf=value
+                    if(strcpf!==undefined) {
+                        if(strcpf.length===11) {
+                            if(verificaNumEqualCPF(strcpf)) {
+                                cpf=strcpf.substring(0,3) + "." +
+                                strcpf.substring(3,6) + "." +
+                                strcpf.substring(6,9) + "-" +
+                                strcpf.substring(9,11)
+                                console.log(cpf)
+                                value.innerHTML = cpf
+                                boo=true 
+                                }
+                            }
+                        }
+                    return boo
+                    },
+                    verificaNumEqualCPF: function (cpf) {
+                    var boo = true
+                    if(cpf === "00000000000" ||
+                    cpf === "11111111111" ||
+                    cpf === "22222222222" ||
+                    cpf === "33333333333" ||
+                    cpf === "44444444444" ||
+                    cpf === "55555555555" ||
+                    cpf === "66666666666" ||
+                    cpf === "77777777777" ||
+                    cpf === "88888888888" ||
+                    cpf === "99999999999" ) {
+                        boo = false
+                    }
+                    return boo
+                }
+
+            }
+        })
+    </script>
+
+</body>
+</html>
