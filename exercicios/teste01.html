@@ -27,6 +27,23 @@
                 email: ''
             },
         methods: {
+            validaCPF: function validaFinalCPF() {
+                var strcpf = this.cpf
+                    this.cpf = "CPF invalido!"
+                    if(this.validaNum(strcpf)) {
+                        if(this.verificaNum(strcpf)) {
+                            if(this.validaModuloOnze(strcpf)) {
+                                this.mascaraCPF(strcpf)
+                        }
+                    }
+                }
+            },
+            mascaraCPF: function mascaraNumCPF(strcpf) {
+                this.cpf = strcpf.substring(0, 3) + "." +
+                           strcpf.substring(3, 6) + "." +
+                           strcpf.substring(6, 9) + "-" +
+                           strcpf.substring(9, 11)                                                       
+            },
             validaNum: function validaNumCPF(strcpf) {
                 var boo = false
                 if(strcpf!==undefined) {
@@ -54,25 +71,13 @@
            },
            validaModuloOnze: function moduloOnzeCPF(strcpf) {
                 var boo = true
-
+                // ** Codigo de validação modulo 11 do CPF
                 return boo
            },
             submitCPF: function(message, event) {
                 if(event) {
-                    var strcpf = this.cpf
-                    this.cpf = "CPF invalido!"
-                    if(this.validaNum(strcpf)) {
-                        if(this.verificaNum(strcpf)) {
-                            if(this.validaModuloOnze(strcpf)) {
-                                this.cpf = strcpf.substring(0, 3) + "." +
-                                           strcpf.substring(3, 6) + "." +
-                                           strcpf.substring(6, 9) + "-" +
-                                           strcpf.substring(9, 11)                                                       
-
-                            }
-                        }
-                    }
-                return this.cpf
+                    this.validaCPF()
+                    return this.cpf
                 }
             },
             submitNome: function(message, event) {
