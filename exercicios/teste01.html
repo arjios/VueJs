@@ -27,7 +27,7 @@
                 email: ''
             },
         methods: {
-            validaCPF: function validaFinalCPF() {
+            validaCPF() {
                 var strcpf = this.cpf
                     this.cpf = "CPF invalido!"
                     if(this.validaNum(strcpf)) {
@@ -38,13 +38,13 @@
                     }
                 }
             },
-            mascaraCPF: function mascaraNumCPF(strcpf) {
+            mascaraCPF(strcpf) {
                 this.cpf = strcpf.substring(0, 3) + "." +
                            strcpf.substring(3, 6) + "." +
                            strcpf.substring(6, 9) + "-" +
                            strcpf.substring(9, 11)                                                       
             },
-            validaNum: function validaNumCPF(strcpf) {
+            validaNum(strcpf) {
                 var boo = false
                 if(strcpf!==undefined) {
                     if(strcpf.length===11) {
@@ -53,7 +53,7 @@
                 }
                 return boo
             },
-            verificaNum: function verificaNumEqualCPF(strcpf) {
+            verificaNum(strcpf) {
                 var boo = true
                 if( strcpf === "00000000000" ||
                     strcpf === "11111111111" ||
@@ -69,7 +69,7 @@
                 }
             return boo
            },
-           validaModuloOnze: function moduloOnzeCPF(strcpf) {
+           validaModuloOnze(strcpf) {
                 var boo = false
                 var somaDiv01 = 0
                 var somaDiv02 = 0
@@ -86,13 +86,13 @@
                 }
                 return boo
            },
-            submitCPF: function(message, event) {
+            submitCPF(message, event) {
                 if(event) {
                     this.validaCPF()
                     return this.cpf
                 }
             },
-            submitNome: function(message, event) {
+            submitNome(message, event) {
                 if(event) {
                     return this.nome
                 }

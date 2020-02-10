@@ -9,49 +9,9 @@
 </head>
 
 <body>
-    <div id = "app">
-        <div class="container">
-            <h3 class="mt-3"><center>{{ title }}</center></h3>
-            <table class="mt-5 table">
-                <tread>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nome</th>
-                        <th>Preço</th>
-                        <th>Qtde</th>
-                        <th>Data</th>
-                    </tr>
-                </tread>
-                <tbody>
-                    <tr v-for="sale in sales">
-                        <td>{{ sale.id }}</td>
-                        <td>{{ sale.name }}</td>
-                        <td id="cpf">{{ sale.price }}</td>
-                        <td>{{ sale.qtde }}</td>
-                        <td>{{ sale.date }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+
     <script>
-        new Vue ({
-            el: "#app",
-            data: {
-                title: "Relatorio de Vendas",
-                sales: null
-            },
-            methods: {
-                getSales() {
-                    fetch('/data/sales.json')
-                        .then(resp => resp.json())
-                        .then(data => this.sales = data)
-                }
-            },
-            mounted() {
-                this.getSales()
-            }
-        })
+        // ...
     </script>
 </body>
 
