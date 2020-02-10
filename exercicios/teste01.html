@@ -70,8 +70,20 @@
             return boo
            },
            validaModuloOnze: function moduloOnzeCPF(strcpf) {
-                var boo = true
+                var boo = false
+                var somaDiv01 = 0
+                var somaDiv02 = 0
                 // ** Codigo de validação modulo 11 do CPF
+                for(j=11;j>2;--j) {
+                    i=j-1
+                    somaDiv01 = somaDiv01 + strcpf.substring(10 - i, 11 - i) * i
+                    somaDiv02 = somaDiv02 + strcpf.substring(11 - j, 12 - j) * j
+                }
+                somaDiv01 = 11 - (somaDiv01 % 11)
+                somaDiv02 = (somaDiv01 * 10 ) + (11 - ((somaDiv02 + (2 * somaDiv01)) % 11))
+                if(strcpf.substring(9, 11) == somaDiv02) {
+                    boo = true
+                }
                 return boo
            },
             submitCPF: function(message, event) {
