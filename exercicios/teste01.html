@@ -16,6 +16,10 @@
         <input type="text" v-model="cpf" placeholder="Digite o CPF" 
                 v-on:keyup.enter="submitCPF(' ', $event)"> {{ cpf }}
         </input>
+        <br />
+        <input type="text" v-model="nasc" placeholder="Data de Nascimento (dd/mm/aaa)" 
+                        v-on:keyup.enter="submitNasc(' ', $event)"> {{ nasc }}
+        </input>
     </div>
     <script>
         new Vue({
@@ -29,11 +33,11 @@
         methods: {
             validaCPF() {
                 var strcpf = this.cpf
-                    this.cpf = "CPF invalido!"
-                    if(this.validaNum(strcpf)) {
-                        if(this.verificaNum(strcpf)) {
-                            if(this.validaModuloOnze(strcpf)) {
-                                this.mascaraCPF(strcpf)
+                this.cpf = "CPF invalido!"
+                if(this.validaNum(strcpf)) {
+                    if(this.verificaNum(strcpf)) {
+                        if(this.validaModuloOnze(strcpf)) {
+                            this.mascaraCPF(strcpf)
                         }
                     }
                 }
@@ -85,7 +89,78 @@
                     boo = true
                 }
                 return boo
-           },
+            },
+            isBissexto(ano) {
+                var boo = false
+                // **** Ano Bissexto
+                if(ano % 100 !== 0 && (ano % 4 === 0 || ano % 400 ===0)) {
+                    boo = true
+                }
+                return boo
+            },
+            validaDia(dia, mes, ano) {
+                var boo = false
+                var qtDias = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+                // **** Valida dia
+                if(this.isBissexto(ano)) {
+                    qtDias[1] = 29
+                }
+                if(dia >= 1 && dia <= qtDias[(mes + 1)]) {
+                    boo = true
+                }
+                return boo
+            },
+            validaMes(mes) {
+                var boo = false
+                // **** Valida mes
+                if(mes >= 1 && mes <=12) {
+                    boo = true 
+                }
+                return boo 
+            },
+            validaAno(ano) {
+                var boo = false
+                data = new Date
+                console.log(data.getFullYear() - 100 + "   ")
+                console.log(data.getFullYear() - 18)
+                if(ano >= (data.getFullYear() - 100) &&
+                    ano <= (data.getFullYear() - 18)) {
+                        boo = true
+                }
+                return boo
+            },
+            validaData(strnasc) {
+                var boo = false
+                var mask = strnasc
+                var maskDia = mask.substring(0, 2)
+                var maskMes = mask.substring(2, 4)
+                var maskAno = mask.substring(4, 8)
+                var data = new Date 
+                if(mask.length===8) {
+                    if(this.validaAno(maskAno)) {
+                        if(this.validaMes(maskMes)) {
+                            if(this.validaDia(maskDia)) {
+                                boo = true
+                            }
+                        }
+                    }
+                }
+                return boo
+            },
+            validaNasc() {
+                var strNasc = "Data invalida!"
+                if(this.validaData(this.nasc)) {
+                    this.mascaraNasc()
+                }
+            },
+            mascaraNasc() {
+                var mask = this.nasc
+                if(mask.length===8) {
+                    this.nasc = mask.substring(0, 2) + "/" +
+                                mask.substring(2, 4) + "/" +
+                                mask.substring(4, 8)
+                }
+            },
             submitCPF(message, event) {
                 if(event) {
                     this.validaCPF()
@@ -95,6 +170,17 @@
             submitNome(message, event) {
                 if(event) {
                     return this.nome
+                }
+            },
+            submitNasc(message, event) {
+                if(event) {
+                    this.validaNasc()
+                    return this.nasc
+                }
+            },
+            submitEmail(message, event) {
+                if(event) {
+                    return this.email
                 }
             }
         }
