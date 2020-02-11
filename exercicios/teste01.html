@@ -10,15 +10,15 @@
 <body class='Exec01'>
     <div id='app'>
         <input type="text" v-model="nome" placeholder="Digite o Nome"
-                v-on:keyup.enter="submitNome(' ', $event)"> {{ nome }}
+                v-on:keyup.enter="submitNome(' ', $event)"> {{ nome }} 
         </input>
         <br />
         <input type="text" v-model="cpf" placeholder="Digite o CPF" 
-                v-on:keyup.enter="submitCPF(' ', $event)"> {{ cpf }}
+                v-on:keyup.enter="submitCPF(' ', $event)"> {{ cpf }} 
         </input>
         <br />
         <input type="text" v-model="nasc" placeholder="Data de Nascimento (dd/mm/aaa)" 
-                        v-on:keyup.enter="submitNasc(' ', $event)"> {{ nasc }}
+                        v-on:keyup.enter="submitNasc(' ', $event)"> {{ nasc }} 
         </input>
     </div>
     <script>
@@ -103,9 +103,11 @@
                 var qtDias = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
                 // **** Valida dia
                 if(this.isBissexto(ano)) {
+                    console.log("Ano Bissexto - " + ano)
                     qtDias[1] = 29
                 }
-                if(dia >= 1 && dia <= qtDias[(mes + 1)]) {
+                if(dia >= 1 && dia <= qtDias[(mes - 1)]) {
+                    console.log("Dia " + dia + " validado! No mes " + mes)
                     boo = true
                 }
                 return boo
@@ -114,6 +116,7 @@
                 var boo = false
                 // **** Valida mes
                 if(mes >= 1 && mes <=12) {
+                    console.log("Mês " + mes + " validado!")
                     boo = true 
                 }
                 return boo 
@@ -121,10 +124,9 @@
             validaAno(ano) {
                 var boo = false
                 data = new Date
-                console.log(data.getFullYear() - 100 + "   ")
-                console.log(data.getFullYear() - 18)
                 if(ano >= (data.getFullYear() - 100) &&
                     ano <= (data.getFullYear() - 18)) {
+                        console.log("Ano " + ano + " validado!")
                         boo = true
                 }
                 return boo
@@ -135,11 +137,10 @@
                 var maskDia = mask.substring(0, 2)
                 var maskMes = mask.substring(2, 4)
                 var maskAno = mask.substring(4, 8)
-                var data = new Date 
                 if(mask.length===8) {
                     if(this.validaAno(maskAno)) {
                         if(this.validaMes(maskMes)) {
-                            if(this.validaDia(maskDia)) {
+                            if(this.validaDia(maskDia, maskMes, maskAno)) {
                                 boo = true
                             }
                         }
@@ -148,18 +149,19 @@
                 return boo
             },
             validaNasc() {
-                var strNasc = "Data invalida!"
                 if(this.validaData(this.nasc)) {
                     this.mascaraNasc()
                 }
+                else {
+                    this.nasc = "Data invalida!"
+                }
+                return this.nasc
             },
             mascaraNasc() {
                 var mask = this.nasc
-                if(mask.length===8) {
-                    this.nasc = mask.substring(0, 2) + "/" +
-                                mask.substring(2, 4) + "/" +
-                                mask.substring(4, 8)
-                }
+                this.nasc = mask.substring(0, 2) + "/" +
+                            mask.substring(2, 4) + "/" +
+                            mask.substring(4, 8)
             },
             submitCPF(message, event) {
                 if(event) {
