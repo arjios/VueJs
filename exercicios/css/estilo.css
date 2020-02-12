@@ -37,6 +37,10 @@ body {
     font-size: 3rem;
 }
 
-button, input {
+input {
+    font-size: 1.2rem
+}
+
+button {
     font-size: 3rem;
 }
